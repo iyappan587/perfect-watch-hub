@@ -106,6 +106,21 @@
     });
   }
 
+  /* ================= MOBILE SECTION ORDER ================= */
+  const heroSection = document.getElementById('top');
+  const productsSection = document.getElementById('products');
+
+  function reorderMobileSections() {
+    if (!heroSection || !productsSection || window.innerWidth > 768) return;
+    const nextSibling = heroSection.nextElementSibling;
+    if (productsSection !== nextSibling) {
+      heroSection.insertAdjacentElement('afterend', productsSection);
+    }
+  }
+
+  reorderMobileSections();
+  window.addEventListener('resize', reorderMobileSections);
+
   /* ================= THEME TOGGLE ================= */
   const themeToggle = $('#themeToggle');
   const savedTheme = store.get('perfectwatchhub_theme', 'dark');

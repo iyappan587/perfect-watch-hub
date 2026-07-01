@@ -565,10 +565,13 @@ section{ padding:130px 0; position:relative; }
   .brand{ font-size:18px; }
   .nav-actions{ gap:4px; }
   .icon-btn{ width:38px; height:38px; }
-  .hero-inner{ grid-template-columns:1fr; text-align:center; gap:50px; }
+  .hero{ min-height:auto; padding:90px 0 36px; }
+  .hero-inner{ grid-template-columns:1fr; text-align:center; gap:32px; padding-top:42px; }
   .hero-copy p{ margin:auto; }
   .hero-cta{ justify-content:center; }
   .hero-stats{ justify-content:center; flex-wrap:wrap; gap:20px; }
+  .scroll-cue{ display:none; }
+  .products{ padding-top:42px; }
   .about-grid{ grid-template-columns:1fr; gap:50px; }
   .stat-row{ grid-template-columns:1fr; }
   .newsletter-inner{ flex-direction:column; text-align:center; }

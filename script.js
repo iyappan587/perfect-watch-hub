@@ -55,23 +55,20 @@
   });
 
   /* ================= MOBILE NAV ================= */
-  const navToggle = $('#navToggle');
-  const navClose = $('#navClose');
-  const navLinks = $('#navLinks');
-  const navBackdrop = $('#navBackdrop');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
 
-  const closeNav = () => {
-    navLinks?.classList.remove('open');
-    navBackdrop?.classList.remove('open');
-  };
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
 
-  navToggle?.addEventListener('click', () => {
-    navLinks?.classList.toggle('open');
-    navBackdrop?.classList.toggle('open');
-  });
-  navClose?.addEventListener('click', closeNav);
-  navBackdrop?.addEventListener('click', closeNav);
-  $$('.nav-link').forEach(link => link.addEventListener('click', closeNav));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  }
 
   /* ================= THEME TOGGLE ================= */
   const themeToggle = $('#themeToggle');

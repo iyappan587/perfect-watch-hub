@@ -56,9 +56,22 @@
 
   /* ================= MOBILE NAV ================= */
   const navToggle = $('#navToggle');
+  const navClose = $('#navClose');
   const navLinks = $('#navLinks');
-  navToggle?.addEventListener('click', () => navLinks?.classList.toggle('open'));
-  $$('.nav-link').forEach(link => link.addEventListener('click', () => navLinks?.classList.remove('open')));
+  const navBackdrop = $('#navBackdrop');
+
+  const closeNav = () => {
+    navLinks?.classList.remove('open');
+    navBackdrop?.classList.remove('open');
+  };
+
+  navToggle?.addEventListener('click', () => {
+    navLinks?.classList.toggle('open');
+    navBackdrop?.classList.toggle('open');
+  });
+  navClose?.addEventListener('click', closeNav);
+  navBackdrop?.addEventListener('click', closeNav);
+  $$('.nav-link').forEach(link => link.addEventListener('click', closeNav));
 
   /* ================= THEME TOGGLE ================= */
   const themeToggle = $('#themeToggle');

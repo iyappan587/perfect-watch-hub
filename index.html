@@ -26,9 +26,14 @@
 <!-- ================= NAVBAR ================= -->
 <header class="navbar" id="navbar">
   <div class="container nav-inner">
-    <a href="#top" class="brand"><span class="dot"></span> Perfect Watch Hub</a>
+    <a href="#top" class="brand">
+      <img src="logo.png" alt="Perfect Watch Hub logo" class="brand-logo">
+    </a>
 
     <nav class="nav-links" id="navLinks">
+      <button class="icon-btn nav-close" id="navClose" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
       <a href="#products" class="nav-link">Products</a>
       <a href="#about" class="nav-link">About</a>
       <a href="#reviews" class="nav-link">Reviews</a>
@@ -57,6 +62,7 @@
     </div>
   </div>
 </header>
+<div class="nav-backdrop" id="navBackdrop"></div>
 
 <!-- Search overlay -->
 <div class="search-panel" id="searchPanel">

@@ -450,8 +450,10 @@ Thank you.`;
   }
 
   function updateBadges() {
-    $('#wishlistCount').textContent = wishlist.length;
-    $('#cartCount').textContent = cart.length;
+    const wishlistCountEl = $('#wishlistCount');
+    const cartCountEl = $('#cartCount');
+    if (wishlistCountEl) wishlistCountEl.textContent = wishlist.length;
+    if (cartCountEl) cartCountEl.textContent = cart.length;
   }
   updateBadges();
 
@@ -566,7 +568,14 @@ Thank you.`;
 
   /* ================= INIT: wait for CSV ================= */
   document.addEventListener('perfectwatchhub:products-ready', renderProducts);
-  // In case the event already fired before this script attached listeners:
-  if (window.PERFECTWATCHHUB.products) renderProducts();
+  if (!window.PERFECTWATCHHUB.products || !window.PERFECTWATCHHUB.products.length) {
+    setTimeout(() => {
+      if (window.PERFECTWATCHHUB.products && window.PERFECTWATCHHUB.products.length) {
+        renderProducts();
+      }
+    }, 250);
+  } else {
+    renderProducts();
+  }
 
 })();

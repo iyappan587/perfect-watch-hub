@@ -28,97 +28,6 @@ window.PERFECTWATCHHUB = window.PERFECTWATCHHUB || {};
       rating: 4.8,
       images: [
         'https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=900&q=80'
-      ],
-      badge: 'Best Seller',
-      color: 'Gold',
-      gender: 'Men',
-      delivery: 'Fast Delivery',
-      productLink: ''
-    },
-    {
-      id: 2,
-      name: 'Smart Sport',
-      brand: 'Perfect Watch Hub',
-      category: 'Sports',
-      price: 15999,
-      oldPrice: 18999,
-      discount: 15,
-      description: 'A sporty watch with a bold dial and durable strap for daily use and travel.',
-      features: ['Chronograph', 'Shock Resistant', 'Luminous Hands', 'Comfort Strap'],
-      stock: 8,
-      rating: 4.7,
-      images: [
-        'https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1596519135081-eebfe4e2b9de?auto=format&fit=crop&w=900&q=80'
-      ],
-      badge: 'New Arrival',
-      color: 'Silver',
-      gender: 'Unisex',
-      delivery: 'Fast Delivery',
-      productLink: ''
-    },
-    {
-      id: 3,
-      name: 'Elegant Sheen',
-      brand: 'Perfect Watch Hub',
-      category: 'Luxury',
-      price: 10999,
-      oldPrice: 12999,
-      discount: 15,
-      description: 'A slim and graceful watch designed for women who love simple elegance and comfort.',
-      features: ['Quartz', 'Slim Case', 'Leather Strap', 'Easy to Wear'],
-      stock: 14,
-      rating: 4.6,
-      images: [
-        'https://images.unsplash.com/photo-1585123334904-845d60e97b29?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&w=900&q=80'
-      ],
-      badge: 'Limited Edition',
-      color: 'Rose Gold',
-      gender: 'Women',
-      delivery: 'Fast Delivery',
-      productLink: ''
-    },
-    {
-      id: 4,
-      name: 'Adventure Pro',
-      brand: 'Perfect Watch Hub',
-      category: 'Diver',
-      price: 18999,
-      oldPrice: 21999,
-      discount: 13,
-      description: 'A strong everyday watch with a classic look and dependable finish for active lifestyles.',
-      features: ['Water Resistant', 'Bold Bezel', 'Durable Case', 'Easy Grip'],
-      stock: 10,
-      rating: 4.9,
-      images: [
-        'https://images.unsplash.com/photo-1548171915-e79a380a2a4b?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1548169874-53e85f753f1e?auto=format&fit=crop&w=900&q=80'
-      ],
-      badge: 'Trending',
-      color: 'Black',
-      gender: 'Men',
-      delivery: 'Fast Delivery',
-      productLink: ''
-    }
-  ];
-
-  const FALLBACK_PRODUCTS = [
-    {
-      id: 1,
-      name: 'Classic Royal',
-      brand: 'Perfect Watch Hub',
-      category: 'Formal',
-      price: 12999,
-      oldPrice: 14999,
-      discount: 13,
-      description: 'A refined gold-toned watch for office wear, family events, and festive occasions.',
-      features: ['Stainless Steel', 'Date Display', 'Water Resistant', 'Gift Friendly'],
-      stock: 12,
-      rating: 4.8,
-      images: [
-        'https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=900&q=80'
@@ -262,6 +171,12 @@ window.PERFECTWATCHHUB = window.PERFECTWATCHHUB || {};
     });
   }
 
+  function notifyProductsReady() {
+    document.dispatchEvent(new CustomEvent('perfectwatchhub:products-ready', {
+      detail: window.PERFECTWATCHHUB.products
+    }));
+  }
+
   async function loadProducts() {
     let products = [];
     let text = '';
@@ -289,7 +204,11 @@ window.PERFECTWATCHHUB = window.PERFECTWATCHHUB || {};
     }
 
     window.PERFECTWATCHHUB.products = products.slice(0, MAX_PRODUCTS);
-    document.dispatchEvent(new CustomEvent('perfectwatchhub:products-ready', { detail: window.PERFECTWATCHHUB.products }));
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', notifyProductsReady, { once: true });
+    } else {
+      setTimeout(notifyProductsReady, 0);
+    }
   }
 
   window.addEventListener('storage', (event) => {
